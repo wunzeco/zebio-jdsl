@@ -10,7 +10,7 @@ job("_seed-microdc") {
     scm {
         git {
             remote {
-                github("wunzeco/zebio-jdsl", 'ssh')
+                github("wunzeco/zebio-jdsl")
                 credentials("zebio-ci-user-git-creds-id")
             }
         }
