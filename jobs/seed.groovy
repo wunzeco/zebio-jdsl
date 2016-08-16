@@ -10,8 +10,8 @@ job("_seed-microdc") {
     scm {
         git {
             remote {
-                github("o2-priority/infra-jenkins-job-dsl", 'ssh')
-                credentials("priority-ci-user-git-creds-id")
+                github("wunzeco/zebio-jdsl", 'ssh')
+                credentials("zebio-ci-user-git-creds-id")
             }
         }
     }

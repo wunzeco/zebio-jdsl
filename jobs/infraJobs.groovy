@@ -12,9 +12,9 @@ print "Build number is => ${BUILD_NUMBER}"
     service/component infra build/update/delete/config-upload job
 */
 
-def svc = 'priority'
+def svc = 'zebio'
 def rakeScriptsRepo = 'infra-rake-tf-build'
-def productDslRepo = 'infra-priority-stack'
+def productDslRepo = 'infra-zebio-stack'
 
 [ 'create', 'destroy', 'update', 'upload' ].each {
     def cmd = it
@@ -29,16 +29,16 @@ def productDslRepo = 'infra-priority-stack'
         multiscm {
             git {
                 remote {
-                    github("o2-priority/${rakeScriptsRepo}", "ssh")
-                    credentials("priority-ci-user-git-creds-id")
+                    github("wunzeco/${rakeScriptsRepo}", "ssh")
+                    credentials("zebio-ci-user-git-creds-id")
                 }
                 branch('master')
                 relativeTargetDir(rakeScriptsRepo)
             }
             git {
                 remote {
-                    github("o2-priority/${productDslRepo}", "ssh")
-                    credentials("priority-ci-user-git-creds-id")
+                    github("wunzeco/${productDslRepo}", "ssh")
+                    credentials("zebio-ci-user-git-creds-id")
                 }
                 branch('master')
                 relativeTargetDir("${productDslRepo}")
@@ -47,9 +47,9 @@ def productDslRepo = 'infra-priority-stack'
         steps {
             environmentVariables {
                 env('AWS_DEFAULT_REGION', '\$AWS_DEFAULT_REGION')
-                env('DC_PRODUCT', 'priority')
-                env('DC_CATEGORY', 'priority')
-                env('DC_BUCKET_NAME', 'priority-infra')
+                env('DC_PRODUCT', 'zebio')
+                env('DC_CATEGORY', 'zebio')
+                env('DC_BUCKET_NAME', 'zebio-infra')
                 env('DC_BUILD_NUMBER', '\$BUILD_NUMBER')
                 env('DC_CREATE_IF_NOT_EXIST', 'true')
                 env('DC_ENVIRONMENT', '\$DC_ENVIRONMENT')
@@ -68,8 +68,8 @@ def productDslRepo = 'infra-priority-stack'
             rvm('2.2.3@rake-tf-build')
             colorizeOutput()
             credentialsBinding {
-                string('AWS_ACCESS_KEY_ID', 'priority-infra-aws-access-key-id-creds-id')
-                string('AWS_SECRET_ACCESS_KEY', 'priority-infra-aws-secret-access-key-creds-id')
+                string('AWS_ACCESS_KEY_ID', 'zebio-infra-aws-access-key-id-creds-id')
+                string('AWS_SECRET_ACCESS_KEY', 'zebio-infra-aws-secret-access-key-creds-id')
             }
         }
     }
@@ -86,16 +86,16 @@ job("${svc}-infra-validate") {
     multiscm {
         git {
             remote {
-                github("o2-priority/${rakeScriptsRepo}", 'ssh')
-                credentials("priority-ci-user-git-creds-id")
+                github("wunzeco/${rakeScriptsRepo}", 'ssh')
+                credentials("zebio-ci-user-git-creds-id")
             }
             branch('master')
             relativeTargetDir(rakeScriptsRepo)
         }
         git {
             remote {
-                github("o2-priority/${productDslRepo}", 'ssh')
-                credentials("priority-ci-user-git-creds-id")
+                github("wunzeco/${productDslRepo}", 'ssh')
+                credentials("zebio-ci-user-git-creds-id")
             }
             branch('master')
             relativeTargetDir("${productDslRepo}")
@@ -107,9 +107,9 @@ job("${svc}-infra-validate") {
     steps {
         environmentVariables {
             env('AWS_DEFAULT_REGION', '\$AWS_DEFAULT_REGION')
-            env('DC_PRODUCT', 'priority')
-            env('DC_CATEGORY', 'priority')
-            env('DC_BUCKET_NAME', 'priority-infra')
+            env('DC_PRODUCT', 'zebio')
+            env('DC_CATEGORY', 'zebio')
+            env('DC_BUCKET_NAME', 'zebio-infra')
             env('DC_BUILD_NUMBER', '\$BUILD_NUMBER')
             env('DC_CREATE_IF_NOT_EXIST', 'true')
             env('DC_ENVIRONMENT', 'dev')
@@ -128,8 +128,8 @@ job("${svc}-infra-validate") {
         rvm('2.2.3@rake-tf-build')
         colorizeOutput()
         credentialsBinding {
-            string('AWS_ACCESS_KEY_ID', 'priority-infra-aws-access-key-id-creds-id')
-            string('AWS_SECRET_ACCESS_KEY', 'priority-infra-aws-secret-access-key-creds-id')
+            string('AWS_ACCESS_KEY_ID', 'zebio-infra-aws-access-key-id-creds-id')
+            string('AWS_SECRET_ACCESS_KEY', 'zebio-infra-aws-secret-access-key-creds-id')
         }
     }
     publishers {
@@ -158,8 +158,8 @@ job("${svc}-infra-ansiblize") {
     multiscm {
         git {
             remote {
-                github("o2-priority/${productDslRepo}", 'ssh')
-                credentials("priority-ci-user-git-creds-id")
+                github("wunzeco/${productDslRepo}", 'ssh')
+                credentials("zebio-ci-user-git-creds-id")
             }
             branch('master')
             relativeTargetDir("${productDslRepo}")
